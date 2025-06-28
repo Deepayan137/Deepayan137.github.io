@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>One VLM to Keep it Learning: Generation and Balancing for Data-free Continual Visual Question Answering</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fdfdfd;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .back-link {
+            margin-bottom: 30px;
+        }
+
+        .back-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 1.1em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
+        }
+
+        .back-link a:hover {
+            color: #2980b9;
+        }
+
+        .paper-header {
+            text-align: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 30px;
+        }
+
+        .paper-title {
+            font-size: 2.2em;
+            font-weight: 400;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            line-height: 1.3;
+        }
+
+        .authors {
+            font-size: 1.2em;
+            color: #7f8c8d;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .author {
+            display: inline;
+        }
+
+        .affiliations {
+            font-size: 1em;
+            color: #95a5a6;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+
+        .venue {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1em;
+            display: inline-block;
+            margin-bottom: 25px;
+        }
+
+        .paper-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .paper-links a {
+            color: white;
+            text-decoration: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            letter-spacing: 0.5px;
+        }
+
+        .pdf-link { background: #e74c3c; }
+        .code-link { background: #27ae60; }
+        .arxiv-link { background: #8e44ad; }
+        .slides-link { background: #f39c12; }
+        .poster-link { background: #16a085; }
+        .video-link { background: #9b59b6; }
+
+        .paper-links a:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section h2 {
+            font-size: 1.8em;
+            font-weight: 400;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 10px;
+        }
+
+        .abstract-text {
+            font-size: 1.1em;
+            line-height: 1.8;
+            text-align: justify;
+            background-color: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+
+        .key-contributions {
+            background-color: #e8f5e8;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 5px solid #27ae60;
+        }
+
+        .key-contributions ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-contributions li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+            font-size: 1.05em;
+        }
+
+        .key-contributions li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .figure-container {
+            text-align: center;
+            margin: 40px 0;
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .figure-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+        }
+
+        .figure-caption {
+            font-size: 0.95em;
+            color: #666;
+            font-style: italic;
+            margin-top: 10px;
+            line-height: 1.5;
+        }
+
+        .method-overview {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .method-overview h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .citation-box {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+            margin: 25px 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+        }
+
+        .copy-btn:hover {
+            background: #2980b9;
+        }
+
+        .benchmark-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+
+        .benchmark-highlight h3 {
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px 15px;
+            }
+            
+            .paper-title {
+                font-size: 1.8em;
+            }
+            
+            .paper-links {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .paper-links a {
+                width: 200px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="back-link">
+        <a href="../index.html">← Back to Homepage</a>
+    </div>
+
+    <div class="paper-header">
+        <h1 class="paper-title">One VLM to Keep it Learning: Generation and Balancing for Data-free Continual Visual Question Answering</h1>
+        
+        <div class="authors">
+            <span class="author">Deepayan Das</span><sup>1</sup>, 
+            <span class="author">Davide Talon</span><sup>2</sup>, 
+            <span class="author">Massimiliano Mancini</span><sup>1</sup>, 
+            <span class="author">Yiming Wang</span><sup>2</sup>, 
+            <span class="author">Elisa Ricci</span><sup>1,2</sup>
+        </div>
+        
+        <div class="affiliations">
+            <sup>1</sup>University of Trento &nbsp;&nbsp; <sup>2</sup>Fondazione Bruno Kessler
+        </div>
+        
+        <div class="venue">WACV 2025</div>
+        
+        <div class="paper-links">
+            <a href="https://openaccess.thecvf.com/content/WACV2025/papers/Das_One_VLM_to_Keep_it_Learning_Generation_and_Balancing_for_WACV_2025_paper.pdf" target="_blank" class="pdf-link">Paper</a>
+            <a href="https://arxiv.org/abs/2411.02210" target="_blank" class="arxiv-link">ArXiv</a>
+            <a href="https://github.com/Deepayan137/GaB" target="_blank" class="code-link">Code</a>
+            <a href="https://docs.google.com/presentation/d/1C58HSxD7lQwG3hIbkGg2e0o2Cmvgw7UKY6_fskqrHUI/edit?usp=sharing" target="_blank" class="slides-link">Slides</a>
+            <a href="https://drive.google.com/file/d/1WC1qcY4xE1cp0wOHJc0upp7TRAo2JFY6/view?usp=sharing" target="_blank" class="poster-link">Poster</a>
+            <a href="https://drive.google.com/file/d/1q_VVNlIi33aJs236NGR8i9MWCX80XvBY/view?usp=sharing" target="_blank" class="video-link">Video</a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Abstract</h2>
+        <div class="abstract-text">
+            Vision-Language Models (VLMs) have shown significant promise in Visual Question Answering (VQA) tasks by leveraging web-scale multimodal datasets. However, these models often struggle with continual learning due to catastrophic forgetting when adapting to new tasks. As an effective remedy to mitigate catastrophic forgetting, rehearsal strategy uses the data of past tasks upon learning new task. However, such strategy incurs the need of storing past data, which might not be feasible due to hardware constraints or privacy concerns. In this work, we propose the first data-free method that leverages the language generation capability of a VLM, instead of relying on external models, to produce pseudo-rehearsal data for addressing continual VQA. Our proposal, named as <strong>GaB</strong>, generates pseudo-rehearsal data by posing previous task questions on new task data. Yet, despite being effective, the distribution of generated questions skews towards the most frequently posed questions due to the limited and task-specific training data. To mitigate this issue, we introduce a pseudo-rehearsal balancing module that aligns the generated data towards the ground-truth data distribution using either the question meta-statistics or an unsupervised clustering method. We evaluate our proposed method on two recent benchmarks, VQACL-VQAv2 and CLOVE-function benchmarks. GaB outperforms all the data-free baselines with substantial improvement in maintaining VQA performance across evolving tasks, while being on-par with methods with access to the past data.
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Key Contributions</h2>
+        <div class="key-contributions">
+            <ul>
+                <li>First <strong>data-free continual learning method</strong> for Visual Question Answering using VLM's own generation capability</li>
+                <li>Novel <strong>GaB (Generation and Balancing)</strong> approach that generates pseudo-rehearsal data without storing past task data</li>
+                <li><strong>Pseudo-rehearsal balancing module</strong> to align generated data distribution with ground-truth using meta-statistics or clustering</li>
+                <li>Comprehensive evaluation on <strong>VQACL-VQAv2 and CLOVE-function</strong> benchmarks</li>
+                <li>Performance <strong>on-par with data-stored methods</strong> while being completely data-free</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Method Overview</h2>
+        <div class="method-overview">
+            <h3>🔄 GaB: Generation and Balancing</h3>
+            <p>Our approach consists of three main components: <strong>(1) Pseudo-Rehearsal Data Generation</strong> where we generate questions from previous tasks using new task images, <strong>(2) Pseudo-Rehearsal Data Balancing</strong> to correct distribution skew using meta-statistics or clustering, and <strong>(3) Sequential Learning</strong> that combines real and pseudo-rehearsal data for continual learning without catastrophic forgetting.</p>
+        </div>
+        
+        <div class="figure-container">
+            <img src="../assets/images/pipeline-one-vlm.png" alt="Method Pipeline" style="background: #f0f0f0; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+            <div style="position: absolute; color: #666;">Pipeline Diagram Here</div>
+            <div class="figure-caption">
+                <strong>Figure 1:</strong> Overview of our GaB method showing the three-phase approach: (a) Pseudo-Rehearsal Data Generation, (b) Pseudo-Rehearsal Data Balancing, and (c) Sequential Learning with Pseudo-Rehearsal.
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Benchmarks</h2>
+        <div class="benchmark-highlight">
+            <h3>📊 Evaluation on Standard Continual VQA Benchmarks</h3>
+            <p>We evaluate GaB on two challenging continual learning benchmarks: <strong>VQACL-VQAv2</strong> and <strong>CLOVE-function</strong>, demonstrating superior performance over data-free baselines while matching data-stored methods.</p>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Qualitative Results</h2>
+        <div class="figure-container">
+            <img src="../assets/images/qualitative-one-vlm.png" alt="Qualitative Results" style="background: #f0f0f0; min-height: 400px; display: flex; align-items: center; justify-content: center;">
+            <div style="position: absolute; color: #666;">Qualitative Results Here</div>
+            <div class="figure-caption">
+                <strong>Figure 2:</strong> Qualitative comparison showing GaB-conditioning vs. our GaB approach across different scenarios including street scenes, farming, and various objects, demonstrating improved question generation and answer accuracy.
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Citation</h2>
+        <div class="citation-box">
+            <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+            <pre id="citation-text">@inproceedings{das2025gab,
+  title={One VLM to Keep it Learning: Generation and Balancing for Data-free Continual Visual Question Answering},
+  author={Das, Deepayan and Talon, Davide and Mancini, Massimiliano and Wang, Yiming and Ricci, Elisa},
+  booktitle={Proceedings of the IEEE/CVF Winter Conference on Applications of Computer Vision (WACV)},
+  year={2025}
+}</pre>
+        </div>
+    </div>
+
+    <script>
+        function copyToClipboard() {
+            const citationText = document.getElementById('citation-text').textContent;
+            navigator.clipboard.writeText(citationText).then(function() {
+                const btn = document.querySelector('.copy-btn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.style.background = '#27ae60';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.style.background = '#3498db';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
