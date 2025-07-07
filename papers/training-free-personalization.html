@@ -120,12 +120,15 @@
         }
     
         .abstract-container {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            margin-bottom: 2rem;
-        }
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        margin-bottom: 2rem;
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
     
         .abstract-container p {
             font-size: 1.1rem;
@@ -371,8 +374,22 @@
             </div>
         </div>
     </section>
-
-    <section class="hero-teaser">
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Key Contributions</h2>
+            <div class="key-contributions">
+                <h3>🎯 Main Contributions</h3>
+                <ul>
+                    <li>First work to explore <strong>training-free personalization</strong> for Vision Language Models</li>
+                    <li>Novel <strong>Retrieval and Reasoning for Personalization (R2P)</strong> method using concept fingerprints</li>
+                    <li>Introduction of <strong>PerVA dataset</strong> - Personal Concepts with Visual Ambiguity</li>
+                    <li>Cross-modal verification and pairwise matching to reduce hallucinations</li>
+                    <li>State-of-the-art performance across multiple benchmarks without any training</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <!-- <section class="hero-teaser">
         <div class="container is-max-desktop">
             <div class="hero-body">
                 <div class="figure-container">
@@ -385,14 +402,14 @@
                 </h2>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <hr>
 
     <section class="section">
         <div class="container is-max-desktop">
             <div class="columns is-centered has-text-centered">
-                <div class="column is-four-fifths">
+                <div>
                     <h2 class="title is-3">Abstract</h2>
                     <div class="abstract-container">
                         <p>
@@ -409,22 +426,6 @@
                         </p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="section">
-        <div class="container is-max-desktop">
-            <h2 class="title is-3">Key Contributions</h2>
-            <div class="key-contributions">
-                <h3>🎯 Main Contributions</h3>
-                <ul>
-                    <li>First work to explore <strong>training-free personalization</strong> for Vision Language Models</li>
-                    <li>Novel <strong>Retrieval and Reasoning for Personalization (R2P)</strong> method using concept fingerprints</li>
-                    <li>Introduction of <strong>PerVA dataset</strong> - Personal Concepts with Visual Ambiguity</li>
-                    <li>Cross-modal verification and pairwise matching to reduce hallucinations</li>
-                    <li>State-of-the-art performance across multiple benchmarks without any training</li>
-                </ul>
             </div>
         </div>
     </section>
