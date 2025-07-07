@@ -4,215 +4,234 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Training-Free Personalization via Retrieval and Reasoning on Fingerprints</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+    
+    <!-- Bulma CSS Framework -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Academicons for arXiv -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+    
+    <!-- Custom Styles -->
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Google Sans', sans-serif;
             line-height: 1.6;
             color: #333;
-            background-color: #fdfdfd;
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
+            background-color: #fafafa;
         }
-
-        .back-link {
-            margin-bottom: 30px;
-        }
-
-        .back-link a {
-            color: #3498db;
-            text-decoration: none;
-            font-size: 1.1em;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: color 0.3s ease;
-        }
-
-        .back-link a:hover {
-            color: #2980b9;
-        }
-
-        .paper-header {
-            text-align: center;
-            margin-bottom: 50px;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 30px;
-        }
-
-        .paper-title {
-            font-size: 2.2em;
-            font-weight: 400;
+    
+        .hero {
+            background: white;
             color: #2c3e50;
-            margin-bottom: 25px;
-            line-height: 1.3;
+            padding: 0; /* Reduced to zero */
+            margin-bottom: 0;
         }
-
-        .authors {
-            font-size: 1.2em;
-            color: #7f8c8d;
-            margin-bottom: 15px;
-            line-height: 1.5;
+    
+        .hero .hero-body {
+            padding: 0 !important;
+            margin: 0 !important;
         }
-
-        .author {
-            display: inline;
+    
+        .hero .columns {
+            margin: 0 !important;
         }
-
-        .affiliations {
-            font-size: 1em;
-            color: #95a5a6;
-            font-style: italic;
-            margin-bottom: 25px;
+    
+        .hero .column {
+            margin: 0 !important;
+            padding: 0 !important;
         }
-
-        .venue {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 25px;
-            font-weight: 600;
-            font-size: 1.1em;
-            display: inline-block;
-            margin-bottom: 25px;
+    
+        .hero .title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-
-        .paper-links {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
+    
+        .hero .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
         }
-
-        .paper-links a {
-            color: white;
+    
+        .publication-authors {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+    
+        .publication-authors a {
+            color: #3273dc;
             text-decoration: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 0.5px;
+            transition: opacity 0.3s ease;
         }
-
-        .pdf-link { background: #e74c3c; }
-        .code-link { background: #27ae60; }
-        .arxiv-link { background: #8e44ad; }
-
-        .paper-links a:hover {
+    
+        .publication-authors a:hover {
+            opacity: 0.8;
+            text-decoration: underline;
+        }
+    
+        .publication-links {
+            margin-top: 1.5rem;
+        }
+    
+        .publication-links .button {
+            margin: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: all 0.3s ease;
+        }
+    
+        .publication-links .button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         }
-
-        .section {
-            margin-bottom: 50px;
+    
+        .venue-badge {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            display: inline-block;
+            margin: 1rem 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-
-        .section h2 {
-            font-size: 1.8em;
+    
+        .section {
+            padding: 3rem 0;
+        }
+    
+        .section .title {
+            font-size: 2rem;
             font-weight: 400;
             color: #2c3e50;
-            margin-bottom: 25px;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
         }
-
-        .abstract-text {
-            font-size: 1.1em;
+    
+        .abstract-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+    
+        .abstract-container p {
+            font-size: 1.1rem;
             line-height: 1.8;
             text-align: justify;
-            background-color: #f8f9fa;
-            padding: 30px;
-            border-radius: 8px;
-            border-left: 5px solid #3498db;
+            margin-bottom: 1rem;
         }
-
+    
         .key-contributions {
-            background-color: #e8f5e8;
-            padding: 25px;
-            border-radius: 8px;
+            background: linear-gradient(135deg, #e8f5e8, #c8e6c9);
+            padding: 2rem;
+            border-radius: 10px;
             border-left: 5px solid #27ae60;
+            margin: 2rem 0;
         }
-
+    
+        .key-contributions h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+    
         .key-contributions ul {
             list-style: none;
             padding-left: 0;
         }
-
+    
         .key-contributions li {
-            margin-bottom: 12px;
-            padding-left: 25px;
+            margin-bottom: 0.8rem;
+            padding-left: 2rem;
             position: relative;
-            font-size: 1.05em;
+            font-size: 1.05rem;
         }
-
+    
         .key-contributions li:before {
             content: "✓";
             position: absolute;
             left: 0;
             color: #27ae60;
             font-weight: bold;
-            font-size: 1.2em;
+            font-size: 1.2rem;
         }
-
+    
+        .method-overview {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+    
+        .method-overview h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+    
         .figure-container {
             text-align: center;
-            margin: 40px 0;
-            background-color: #f9f9f9;
-            padding: 30px;
+            margin: 2rem 0;
+            background: white;
+            padding: 2rem;
             border-radius: 10px;
-            border: 1px solid #e0e0e0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-
+    
         .figure-container img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            margin-bottom: 15px;
+            margin-bottom: 1rem;
         }
-
+    
         .figure-caption {
-            font-size: 0.95em;
+            font-size: 0.95rem;
             color: #666;
             font-style: italic;
-            margin-top: 10px;
             line-height: 1.5;
         }
-
-        .method-overview {
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            padding: 30px;
+    
+        .dataset-highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
             border-radius: 10px;
-            margin: 30px 0;
+            margin: 2rem 0;
         }
-
-        .method-overview h3 {
-            color: #2c3e50;
-            margin-bottom: 15px;
-            font-size: 1.3em;
+    
+        .dataset-highlight h3 {
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
         }
-
-        .citation-box {
-            background-color: #2c3e50;
+    
+        .citation-container {
+            background: #2c3e50;
             color: #ecf0f1;
-            padding: 20px;
-            border-radius: 6px;
+            padding: 1.5rem;
+            border-radius: 8px;
             font-family: 'Courier New', monospace;
-            font-size: 0.9em;
+            font-size: 0.9rem;
             line-height: 1.4;
-            margin: 25px 0;
+            margin: 2rem 0;
             position: relative;
             overflow-x: auto;
         }
-
+    
         .copy-btn {
             position: absolute;
             top: 10px;
@@ -220,150 +239,283 @@
             background: #3498db;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 0.5rem 1rem;
             border-radius: 4px;
             cursor: pointer;
-            font-size: 0.8em;
+            font-size: 0.8rem;
+            transition: background 0.3s ease;
         }
-
+    
         .copy-btn:hover {
             background: #2980b9;
         }
-
-        .dataset-highlight {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 30px 0;
+    
+        .back-link {
+            margin-bottom: 2rem;
         }
-
-        .dataset-highlight h3 {
-            margin-bottom: 15px;
-            font-size: 1.3em;
+    
+        .back-link a {
+            color: #3498db;
+            text-decoration: none;
+            font-size: 1.1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.3s ease;
         }
-
+    
+        .back-link a:hover {
+            color: #2980b9;
+        }
+    
+        .hero-teaser {
+            background: white;
+            padding: 1rem 0; /* reduced from 3rem */
+            margin-top: 0;
+        }
+    
+        .hero-teaser .subtitle {
+            color: #666;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-align: justify;
+        }
+    
+        hr {
+            margin: 0 !important;
+        }
+    
         @media (max-width: 768px) {
-            body {
-                padding: 20px 15px;
+            .hero .title {
+                font-size: 2rem;
             }
-            
-            .paper-title {
-                font-size: 1.8em;
+    
+            .publication-links .button {
+                width: 100%;
+                margin: 0.25rem 0;
             }
-            
-            .paper-links {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .paper-links a {
-                width: 200px;
-                text-align: center;
+    
+            .section {
+                padding: 2rem 0;
             }
         }
     </style>
+    
+    
 </head>
 <body>
-    <div class="back-link">
-        <a href="../index.html">← Back to Homepage</a>
-    </div>
-
-    <div class="paper-header">
-        <h1 class="paper-title">Training-Free Personalization via Retrieval and Reasoning on Fingerprints</h1>
-        
-        <div class="authors">
-            <span class="author">Deepayan Das</span><sup>1</sup>, 
-            <span class="author">Davide Talon</span><sup>2</sup>, 
-            <span class="author">Yiming Wang</span><sup>2</sup>, 
-            <span class="author">Massimiliano Mancini</span><sup>1</sup>, 
-            <span class="author">Elisa Ricci</span><sup>1,2</sup>
-        </div>
-        
-        <div class="affiliations">
-            <sup>1</sup>University of Trento &nbsp;&nbsp; <sup>2</sup>Fondazione Bruno Kessler
-        </div>
-        
-        <div class="venue">ICCV 2025</div>
-        
-        <div class="paper-links">
-            <a href="https://arxiv.org/abs/2503.18623" target="_blank" class="arxiv-link">ArXiv</a>
-            <a href="https://github.com/Deepayan137/R2P" class="code-link">Code</a>
+    <div class="container is-max-desktop" style="padding: 2rem 1rem;">
+        <div class="back-link">
+            <a href="../index.html">← Back to Homepage</a>
         </div>
     </div>
 
-    <div class="section">
-        <h2>Abstract</h2>
-        <div class="abstract-text">
-            Vision Language Models (VLMs) have lead to major improvements in multimodal reasoning, yet they still struggle to understand user-specific concepts. Existing personalization methods address this limitation but heavily rely on training procedures, that can be either costly or unpleasant to individual users. We depart from existing work, and for the first time explore the training-free setting in the context of personalization. We propose a novel method, <strong>Retrieval and Reasoning for Personalization (R2P)</strong>, leveraging internal knowledge of VLMs. First, we leverage VLMs to extract the concept fingerprint, i.e., key attributes uniquely defining the concept within its semantic class. When a query arrives, the most similar fingerprints are retrieved and scored via chain-of-thought-reasoning. To reduce the risk of hallucinations, the scores are validated through cross-modal verification at the attribute level: in case of a discrepancy between the scores, R2P refines the concept association via pairwise multimodal matching, where the retrieved fingerprints and their images are directly compared with the query. We validate R2P on two publicly available benchmarks and a newly introduced dataset, Personal Concepts with Visual Ambiguity (PerVA), for concept identification highlighting challenges in visual ambiguity. R2P consistently outperforms state-of-the-art approaches on various downstream tasks across all benchmarks.
-        </div>
-    </div>
+    <section class="hero">
+        <div class="hero-body">
+            <div class="container is-max-desktop">
+                <div class="columns is-centered">
+                    <div class="column has-text-centered">
+                        <h1 class="title is-1 publication-title">Training-Free Personalization via Retrieval and Reasoning on Fingerprints</h1>
+                        
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block">
+                                <a href="https://deepayan137.github.io/" target="_blank">Deepayan Das</a><sup>1</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://davidetalon.github.io/" target="_blank">Davide Talon</a><sup>2</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://www.yimingwang.it/" target="_blank">Yiming Wang</a><sup>2</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://mancinimassimiliano.github.io/" target="_blank">Massimiliano Mancini</a><sup>1</sup>,</span>
+                            <span class="author-block">
+                                <a href="https://scholar.google.com/citations?user=xf1T870AAAAJ&hl=en" target="_blank">Elisa Ricci</a><sup>1,2</sup>
+                            </span>
+                        </div>                        
 
-    <div class="section">
-        <h2>Key Contributions</h2>
-        <div class="key-contributions">
-            <ul>
-                <li>First work to explore <strong>training-free personalization</strong> for Vision Language Models</li>
-                <li>Novel <strong>Retrieval and Reasoning for Personalization (R2P)</strong> method using concept fingerprints</li>
-                <li>Introduction of <strong>PerVA dataset</strong> - Personal Concepts with Visual Ambiguity</li>
-                <li>Cross-modal verification and pairwise matching to reduce hallucinations</li>
-                <li>State-of-the-art performance across multiple benchmarks without any training</li>
-            </ul>
-        </div>
-    </div>
+                        <div class="is-size-5 publication-authors">
+                            <span class="author-block"><sup>1</sup>University of Trento</span>
+                            <span class="author-block"><sup>2</sup>Fondazione Bruno Kessler</span>
+                        </div>
 
-    <div class="section">
-        <h2>Method Overview</h2>
-        <div class="method-overview">
-            <h3>R2P: Retrieval and Reasoning for Personalization</h3>
-            <p>Our approach operates in two main phases: <strong>(1) Personal database creation</strong> where we extract concept fingerprints using VLM-based VQA, and <strong>(2) Concept inference</strong> with retrieval-reasoning that uses attribute-focused Chain-of-Thought reasoning and cross-modal verification to accurately identify personalized concepts in query images.</p>
-        </div>
-        
-        <div class="figure-container">
-            <img src="../assets/images/pipeline.png" alt="Main Pipeline">
-            <div class="figure-caption">
-                <strong>Figure 1:</strong> Overview of our R2P method showing the two-phase approach: personal database creation and concept inference with retrieval-reasoning.
+                        <div class="venue-badge">ICCV 2025</div>
+
+                        <div class="column has-text-centered">
+                            <div class="publication-links">
+                                <span class="link-block">
+                                    <a href="https://arxiv.org/abs/2503.18623" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="ai ai-arxiv"></i>
+                                        </span>
+                                        <span>arXiv</span>
+                                    </a>
+                                </span>
+                                <span class="link-block">
+                                    <a href="https://github.com/Deepayan137/R2P" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fab fa-github"></i>
+                                        </span>
+                                        <span>Code</span>
+                                    </a>
+                                </span>
+                                <span class="link-block">
+                                    <a href="https://drive.google.com/file/d/1VntjTpEIW40hLMhvoIqjATzs1Tjiry31/view?usp=drive_link" target="_blank" class="external-link button is-normal is-rounded is-dark">
+                                        <span class="icon">
+                                            <i class="fas fa-database"></i>
+                                        </span>
+                                        <span>Dataset</span>
+                                    </a>
+                                </span>                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="section">
-        <h2>PerVA Dataset</h2>
-        <div class="dataset-highlight">
-            <h3>🎯 Personal Concepts with Visual Ambiguity (PerVA)</h3>
-            <p>We introduce PerVA, a new benchmark specifically designed to evaluate personalization methods on visually ambiguous concepts. This dataset highlights the challenges in distinguishing between similar-looking personal items and concepts.</p>
-        </div>
-        
-        <div class="figure-container">
-            <img src="../assets/images/dataset-personalization-1.png" alt="PerVA Dataset">
-            <div class="figure-caption">
-                <strong>Figure 2:</strong> Examples from our PerVA dataset showing personal concepts with visual ambiguity across different categories.
+    <section class="hero-teaser">
+        <div class="container is-max-desktop">
+            <div class="hero-body">
+                <div class="figure-container">
+                    <img src="../assets/images/pipeline.png" alt="Main Pipeline" style="width: 100%; height: auto;">
+                </div>
+                <h2 class="subtitle">
+                    Our R2P method leverages Vision Language Models for training-free personalization through concept fingerprints. 
+                    The approach uses retrieval and reasoning with cross-modal verification to accurately identify personalized concepts 
+                    without requiring any model training or fine-tuning.
+                </h2>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="section">
-        <h2>Qualitative Results</h2>
-        <div class="figure-container">
-            <img src="../assets/images/qual_result-1.png" alt="Qualitative Results">
-            <div class="figure-caption">
-                <strong>Figure 3:</strong> Qualitative results showing our method's ability to correctly identify personalized concepts through retrieval and reasoning, with examples of concept inference and cross-modal verification.
+    <hr>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <div class="columns is-centered has-text-centered">
+                <div class="column is-four-fifths">
+                    <h2 class="title is-3">Abstract</h2>
+                    <div class="abstract-container">
+                        <p>
+                            Vision Language Models (VLMs) have lead to major improvements in multimodal reasoning, yet they still struggle to understand user-specific concepts. Existing personalization methods address this limitation but heavily rely on training procedures, that can be either costly or unpleasant to individual users.
+                        </p>
+                        <p>
+                            We depart from existing work, and for the first time explore the training-free setting in the context of personalization. We propose a novel method, <strong>Retrieval and Reasoning for Personalization (R2P)</strong>, leveraging internal knowledge of VLMs. First, we leverage VLMs to extract the concept fingerprint, i.e., key attributes uniquely defining the concept within its semantic class.
+                        </p>
+                        <p>
+                            When a query arrives, the most similar fingerprints are retrieved and scored via chain-of-thought-reasoning. To reduce the risk of hallucinations, the scores are validated through cross-modal verification at the attribute level: in case of a discrepancy between the scores, R2P refines the concept association via pairwise multimodal matching, where the retrieved fingerprints and their images are directly compared with the query.
+                        </p>
+                        <p>
+                            We validate R2P on two publicly available benchmarks and a newly introduced dataset, Personal Concepts with Visual Ambiguity (PerVA), for concept identification highlighting challenges in visual ambiguity. R2P consistently outperforms state-of-the-art approaches on various downstream tasks across all benchmarks.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="section">
-        <h2>Citation</h2>
-        <div class="citation-box">
-            <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
-            <pre id="citation-text">@article{das2025training,
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Key Contributions</h2>
+            <div class="key-contributions">
+                <h3>🎯 Main Contributions</h3>
+                <ul>
+                    <li>First work to explore <strong>training-free personalization</strong> for Vision Language Models</li>
+                    <li>Novel <strong>Retrieval and Reasoning for Personalization (R2P)</strong> method using concept fingerprints</li>
+                    <li>Introduction of <strong>PerVA dataset</strong> - Personal Concepts with Visual Ambiguity</li>
+                    <li>Cross-modal verification and pairwise matching to reduce hallucinations</li>
+                    <li>State-of-the-art performance across multiple benchmarks without any training</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Method Overview</h2>
+            <div class="method-overview">
+                <h3>R2P: Retrieval and Reasoning for Personalization</h3>
+                <p>Our approach operates in two main phases: <strong>(1) Personal database creation</strong> where we extract concept fingerprints using VLM-based VQA, and <strong>(2) Concept inference</strong> with retrieval-reasoning that uses attribute-focused Chain-of-Thought reasoning and cross-modal verification to accurately identify personalized concepts in query images.</p>
+            </div>
+            
+            <div class="figure-container">
+                <img src="../assets/images/pipeline.png" alt="Method Pipeline">
+                <div class="figure-caption">
+                    <strong>Figure 1:</strong> Overview of our R2P method showing the two-phase approach: personal database creation and concept inference with retrieval-reasoning.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">PerVA Dataset</h2>
+            <div class="dataset-highlight">
+                <h3>🎯 Personal Concepts with Visual Ambiguity (PerVA)</h3>
+                <p>We introduce PerVA, a new benchmark specifically designed to evaluate personalization methods on visually ambiguous concepts. This dataset highlights the challenges in distinguishing between similar-looking personal items and concepts, providing a comprehensive evaluation framework for training-free personalization approaches.</p>
+            </div>
+            
+            <div class="figure-container">
+                <img src="../assets/images/dataset-personalization-1.png" alt="PerVA Dataset">
+                <div class="figure-caption">
+                    <strong>Figure 2:</strong> Examples from our PerVA dataset showing personal concepts with visual ambiguity across different categories.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Qualitative Results</h2>
+            <div class="figure-container">
+                <img src="../assets/images/qual_result-1.png" alt="Qualitative Results">
+                <div class="figure-caption">
+                    <strong>Figure 3:</strong> Qualitative results showing our method's ability to correctly identify personalized concepts through retrieval and reasoning, with examples of concept inference and cross-modal verification.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section" id="BibTeX">
+        <div class="container is-max-desktop">
+            <h2 class="title is-3">Citation</h2>
+            <div class="citation-container">
+                <button class="copy-btn" onclick="copyToClipboard()">Copy</button>
+                <pre id="citation-text">@article{das2025training,
   title={Training-Free Personalization via Retrieval and Reasoning on Fingerprints},
   author={Das, Deepayan and Talon, Davide and Wang, Yiming and Mancini, Massimiliano and Ricci, Elisa},
   journal={arXiv preprint arXiv:2503.18623},
   year={2025}
 }</pre>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="content has-text-centered">
+                <a class="icon-link" href="https://arxiv.org/abs/2503.18623" target="_blank" title="View Paper on arXiv">
+                    <i class="ai ai-arxiv fa-2x"></i>
+                </a>
+                <a class="icon-link" href="https://github.com/Deepayan137/R2P" target="_blank" title="View Project on GitHub">
+                    <i class="fab fa-github fa-2x"></i>
+                </a>
+            </div>
+            <div class="columns is-centered" style="margin-top: 20px;">
+                <div class="column is-8">
+                    <div class="content has-text-centered">
+                        <p>
+                            This website is licensed under a
+                            <a href="http://creativecommons.org/licenses/by-sa/4.0/" rel="license" target="_blank">
+                                Creative Commons Attribution-ShareAlike 4.0 International License
+                            </a>.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
     <script>
         function copyToClipboard() {
